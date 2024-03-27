@@ -79,7 +79,7 @@ export async function updateProduct(
 
   let imagePath = product.imagePath
   if (data.image != null && data.image.size > 0) {
-    await fs.unlink(`public${product.filePath}`)
+    await fs.unlink(`public${product.imagePath}`)
     imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`
     await fs.writeFile(
       `public${imagePath}`,
