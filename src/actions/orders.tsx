@@ -1,6 +1,7 @@
 'use server'
 
 import db from '@/db/db'
+import OrderHistoryEmail from '@/email/OrderHistory'
 import { Resend } from 'resend'
 import { z } from 'zod'
 
