@@ -46,8 +46,7 @@ OrderHistoryEmail.PreviewProps = {
       downloadVerificationId: crypto.randomUUID(),
       product: {
         name: 'Product Name 2',
-        imagePath:
-          '/products/633e0bee-70b9-41bf-8d63-d91cb8b7110b-Screenshot_20221226_045647.png',
+        imagePath: '/products/',
         description: 'Product 2 description',
       },
     },
