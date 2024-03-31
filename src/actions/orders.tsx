@@ -47,15 +47,17 @@ export async function emailOrderHisatory(
     }
   }
 
-  const orders = user.orders.map((order) => {
+  const orders = user.orders.map(async (order) => {
     return {
       ...order,
-      downloadVerificationId: db.downloadVerification.create({
-        data: {
-          expiresAt: new Date(Date.now() + 24 * 1000 * 60 * 60),
-          productId: order.product.id,
-        },
-      }),
+      downloadVerificationId: (
+        await db.downloadVerification.create({
+          data: {
+            expiresAt: new Date(Date.now() + 24 * 1000 * 60 * 60),
+            productId: order.product.id,
+          },
+        })
+      ).id,
     }
   })
 
@@ -63,7 +65,7 @@ export async function emailOrderHisatory(
     from: `Support <${process.env.SENDER_EMAIL}>`,
     to: user.email,
     subject: 'Order History',
-    react: <OrderHistoryEmail />,
+    react: <OrderHistoryEmail orders={await Promise.all(orders)} />,
   })
 
   if (data.error) {
